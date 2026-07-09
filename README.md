@@ -17,12 +17,12 @@ SmartSheet AI is a next-generation intelligent spreadsheet platform that combine
 
 ### Frontend
 - **Framework:** ReactJS
-- **Design UI/UX:** Stitch
+- **Design UI/UX:** Stitch (https://stitch.withgoogle.com/projects/6547954069371395139)
 
 ### Backend & Database
 - **Framework:** FastAPI
 - **Database:** PostgreSQL
-- **Design Database:** Use Case Diagram
+- **Design Database:** Use Case Diagram (https://dbdiagram.io/d/dfd-695a40b439fa3db27b0bf6b4)
 
 ### CI/CD & Deploy
 - **Workflow:** GitHub Actions
