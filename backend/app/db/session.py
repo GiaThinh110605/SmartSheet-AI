@@ -4,5 +4,3 @@ from sqlmodel import create_engine, Session
 engine = create_engine(settings.DATABASE_URL)
 
 db = Session(engine)
-
-print(db)
