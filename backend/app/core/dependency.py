@@ -12,7 +12,7 @@ from app.db.session import SessionDep
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
 
-def get_current_user(token: str = Depends(oauth2_scheme), db = SessionDep):
+def get_current_user(db: SessionDep, token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

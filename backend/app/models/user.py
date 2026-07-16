@@ -13,6 +13,7 @@ class User(SQLModel, table=True):
     email: str = Field(unique=True, index=True, max_length=255, nullable=False)
     name: Optional[str] = Field(default=None, max_length=100)
     avatar_url: Optional[str] = Field(default=None)
+    hashed_password: str = Field(nullable=False)
 
     settings: Optional[Dict] = Field(default=None, sa_column=Column(JSONB))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
