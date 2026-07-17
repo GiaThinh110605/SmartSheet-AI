@@ -1,4 +1,5 @@
 
+from datetime import datetime
 from app.core.dependency import get_current_user
 from app.core.security import verify_password
 from app.schemas.auth import UserLogin
@@ -59,5 +60,27 @@ def token(db: SessionDep, form_data: OAuth2PasswordRequestForm = Depends()):
     }
 
 @router.get("/me", response_model=UserOut)
-def me(user: User = Depends(get_current_user)):
+def get_me(user: User = Depends(get_current_user)):
     return user
+
+@router.patch("/me", response_model=UserOut)
+def update_me(
+    db: SessionDep,
+    user_in: UserRegister,
+    current_user: User = Depends(get_current_user)
+):
+    if user_in.name is not None:
+        current_user.name = user_in.name
+    if user_in.password is not None:
+        current_user.hashed_password = get_password_hash(user_in.password)
+    current_user.updated_at = datetime.utcnow()
+    db.add(current_user)
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+@router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
+def delete_me(db: SessionDep, current_user = Depends(get_current_user)):
+    db.delete(current_user)
+    db.commit()
+    return None
