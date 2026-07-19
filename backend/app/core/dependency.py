@@ -1,10 +1,7 @@
 
 import uuid
-from sqlalchemy.orm.base import PASSIVE_ONLY_PERSISTENT
-from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
-from app.db.session import get_db
 import jwt
 from app.core.config import settings
 from app.models.user import User
