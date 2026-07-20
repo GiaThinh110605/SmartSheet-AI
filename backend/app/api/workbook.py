@@ -1,4 +1,5 @@
 
+from starlette.status import HTTP_200_OK
 from uuid import UUID
 from fastapi import HTTPException
 from starlette.status import HTTP_404_NOT_FOUND
@@ -35,7 +36,7 @@ def created_workbook(
     db.refresh(db_workbook)
     return db_workbook
 
-@router.get("", response_model=List[WorkbookOut])
+@router.get("", response_model=List[WorkbookOut], status_code=status.HTTP_200_OK)
 def get_all_workbook(db: SessionDep, current_user: User = Depends(get_current_user)):
     statement = select(Workbook).where(Workbook.user_id == current_user.id)
     workbook = db.exec(statement).all()
@@ -59,7 +60,7 @@ def get_workbook_by_id(
         raise HTTPException(status_code=404, detail="Workbook not found or unauthorized")
     return workbook
 
-@router.patch("/{id}", response_model=WorkbookOut)
+@router.patch("/{id}", response_model=WorkbookOut, status_code=HTTP_200_OK)
 def update_workbook(
     id: UUID,
     payload: WorkbookUdpdate,
