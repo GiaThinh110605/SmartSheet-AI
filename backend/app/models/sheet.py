@@ -1,15 +1,15 @@
 
-from sqlalchemy import ForeignKey
-from sqlalchemy import Column
+from sqlalchemy import ForeignKey, Column
 import uuid
-from pydantic import Field
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Field
 from typing import Optional, Dict
 from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime, timezone
 
 class Sheet(SQLModel, table=True):
-    id: uuid.UUID = Field(default=uuid.uuid4, primary_key=True, index=True)
+    __tablename__ = "sheets"
+
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True, nullable=False)
     workbook_id: uuid.UUID = Field(sa_column=Column(ForeignKey("workbooks.id", ondelete="CASCADE")))
     name: str = Field(unique=True, max_length=100, nullable=False)
     index: int = Field(default=0, nullable=False)
