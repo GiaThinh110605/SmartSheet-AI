@@ -10,12 +10,27 @@ from app.api.ai import router as ai_router
 from app.api.uploaded_document import router as uploaded_document_router
 from app.api.system import router as system_router
 from app.api.ws import router as ws_router
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(workbook_router, prefix="/api/v1")
