@@ -61,6 +61,20 @@ def test_patch_workbook(client: TestClient):
     assert response.status_code == 200
     assert response.json()["name"] == "thinh"
     assert response.json()["description"] == "kkk"
+
+
+def test_get_workbook_by_uuid_root_path(client: TestClient):
+    headers = get_auth_header(client, "user4@gmail.com", "test4")
+
+    create_res = client.post("/api/v1/workbooks", json={"name": "Book D", "description": "kkk"}, headers=headers)
+    workbook_id = create_res.json()["id"]
+
+    response = client.get(f"/api/v1/workbooks/{workbook_id}", headers=headers)
+    print("CREATE RES:", create_res.status_code, create_res.json())
+    print("GET RES:", response.status_code, response.json())
+    assert response.status_code == 200
+    assert response.json()["id"] == workbook_id
+    assert response.json()["name"] == "Book D"
     
 def test_delete_workbook(client: TestClient):
     headers = get_auth_header(client, "user3@gmail.com", "test3")

@@ -89,7 +89,7 @@ def load_sheet_data(sheet_id: UUID, db: SessionDep, current_user: User = Depends
     if not workbook or workbook.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Sheet not found or unauthorized")
     return {
-        "data": sheet.data or [],
+        "data": [sheet.data] or [],
         "version": sheet.version
     }
 
