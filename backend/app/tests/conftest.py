@@ -3,6 +3,21 @@ from sqlmodel import SQLModel
 from sqlalchemy import create_engine
 from fastapi.testclient import TestClient
 import pytest
+import os
+import sys
+
+# Ensure backend root is on sys.path so tests can import main.py reliably
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+# Provide defaults for required settings so importing app doesn't fail in tests
+os.environ["SECRET_KEY"] = "testsecret"
+os.environ["ALGORITHM"] = "HS256"
+os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"] = "30"
+# Force tests to use a local SQLite DB for startup create_db_and_tables
+os.environ["DATABASE_URL"] = "sqlite:///./test.db"
+os.environ["TESTING"] = "1"
+
 from main import app
 from app.db.session import get_db
 from sqlalchemy.ext.compiler import compiles
