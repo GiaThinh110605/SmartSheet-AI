@@ -15,7 +15,7 @@ Nền tảng bảng tính thông minh tích hợp AI tiên tiến giúp quản l
 
 **Frontend:** ReactJS + Vite, Custom UI Components  
 **Backend:** FastAPI (Python 3.9+), PostgreSQL, Redis  
-**AI/ML:** Google Gemini 1.5 Pro, Tesseract OCR  
+**AI/ML:** Self-hosted LLM (LLaMA/Mistral), Tesseract OCR, Custom Vision Models  
 **DevOps:** Docker, GitHub Actions, Render/Vercel
 
 ## 📦 Cài đặt
@@ -49,7 +49,7 @@ docker-compose up -d
 **Environment Variables:**
 - `DATABASE_URL`: PostgreSQL connection string
 - `REDIS_URL`: Redis connection string
-- `GEMINI_API_KEY`: Google Gemini API key
+- `LLM_MODEL_PATH`: Path to self-hosted LLM model
 - `SECRET_KEY`: JWT secret key
 
 ## 📖 Hướng dẫn sử dụng
